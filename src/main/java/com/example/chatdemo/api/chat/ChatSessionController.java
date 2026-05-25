@@ -2,6 +2,7 @@ package com.example.chatdemo.api.chat;
 
 import com.example.chatdemo.api.chat.dto.ChatSessionResponse;
 import com.example.chatdemo.api.chat.dto.CreateChatSessionRequest;
+import com.example.chatdemo.api.common.ApiResponse;
 import com.example.chatdemo.service.chat.ChatSessionService;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,10 +22,10 @@ public class ChatSessionController {
     }
 
     @PostMapping
-    public ChatSessionResponse create(
+    public ApiResponse<ChatSessionResponse> create(
             @RequestHeader("X-User-Id") Long userId,
             @Valid @RequestBody CreateChatSessionRequest request
     ) {
-        return chatSessionService.create(userId, request);
+        return ApiResponse.success(chatSessionService.create(userId, request));
     }
 }

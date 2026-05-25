@@ -14,7 +14,7 @@ public class CharacterProfile extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "character_id", nullable = false)
-    private CharacterProfileRoot character;
+    private Character character;
 
     @Column(nullable = false)
     private Integer version;
@@ -38,7 +38,7 @@ public class CharacterProfile extends BaseEntity {
     }
 
     public CharacterProfile(
-            CharacterProfileRoot character,
+            Character character,
             Integer version,
             String profileJson,
             String styleSummary,
@@ -55,7 +55,7 @@ public class CharacterProfile extends BaseEntity {
         this.generatedFromSourceIds = generatedFromSourceIds;
     }
 
-    public CharacterProfileRoot getCharacter() {
+    public Character getCharacter() {
         return character;
     }
 

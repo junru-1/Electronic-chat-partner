@@ -1,5 +1,6 @@
 package com.example.chatdemo.api.settings;
 
+import com.example.chatdemo.api.common.ApiResponse;
 import com.example.chatdemo.api.settings.dto.ModelSettingsResponse;
 import com.example.chatdemo.service.settings.ModelSettingsService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +18,7 @@ public class ModelSettingsController {
     }
 
     @GetMapping
-    public ModelSettingsResponse get() {
-        return modelSettingsService.getCurrentSettings();
+    public ApiResponse<ModelSettingsResponse> get() {
+        return ApiResponse.success(modelSettingsService.getCurrentSettings());
     }
 }

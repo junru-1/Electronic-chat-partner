@@ -2,7 +2,9 @@ package com.example.chatdemo.service.character;
 
 import com.example.chatdemo.api.character.dto.AddCharacterSourceRequest;
 import com.example.chatdemo.api.character.dto.CharacterSourceResponse;
-import com.example.chatdemo.domain.character.CharacterProfileRoot;
+import com.example.chatdemo.api.common.BusinessException;
+import com.example.chatdemo.api.common.ErrorCode;
+import com.example.chatdemo.domain.character.Character;
 import com.example.chatdemo.domain.character.CharacterSource;
 import com.example.chatdemo.repository.character.CharacterRepository;
 import com.example.chatdemo.repository.character.CharacterSourceRepository;
@@ -31,8 +33,8 @@ public class CharacterSourceService {
 
     @Transactional
     public CharacterSourceResponse add(Long characterId, AddCharacterSourceRequest request) {
-        CharacterProfileRoot character = characterRepository.findById(characterId)
-                .orElseThrow(() -> new IllegalArgumentException("Character not found: " + characterId));
+        Character character = characterRepository.findById(characterId)
+                .orElseThrow(() -> new BusinessException(ErrorCode.CHARACTER_NOT_FOUND));
 
         CharacterSource source = new CharacterSource(character, request.sourceType(), request.title(), request.rawText());
         return CharacterSourceResponse.from(characterSourceRepository.save(source));

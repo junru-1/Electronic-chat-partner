@@ -13,7 +13,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "characters")
-public class CharacterProfileRoot extends BaseEntity {
+public class Character extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", nullable = false)
@@ -38,10 +38,10 @@ public class CharacterProfileRoot extends BaseEntity {
     @Column(nullable = false, length = 30)
     private CharacterStatus status;
 
-    protected CharacterProfileRoot() {
+    protected Character() {
     }
 
-    public CharacterProfileRoot(
+    public Character(
             UserAccount user,
             String name,
             String relationshipType,

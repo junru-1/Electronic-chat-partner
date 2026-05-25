@@ -1,6 +1,6 @@
 package com.example.chatdemo.domain.chat;
 
-import com.example.chatdemo.domain.character.CharacterProfileRoot;
+import com.example.chatdemo.domain.character.Character;
 import com.example.chatdemo.domain.common.BaseEntity;
 import com.example.chatdemo.domain.user.UserAccount;
 import jakarta.persistence.Column;
@@ -18,7 +18,7 @@ public class ConversationSession extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "character_id", nullable = false)
-    private CharacterProfileRoot character;
+    private Character character;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", nullable = false)
@@ -37,7 +37,7 @@ public class ConversationSession extends BaseEntity {
     protected ConversationSession() {
     }
 
-    public ConversationSession(CharacterProfileRoot character, UserAccount user, ScenarioMode scenarioMode, Integer moodLevel, String title) {
+    public ConversationSession(Character character, UserAccount user, ScenarioMode scenarioMode, Integer moodLevel, String title) {
         this.character = character;
         this.user = user;
         this.scenarioMode = scenarioMode;
@@ -45,7 +45,7 @@ public class ConversationSession extends BaseEntity {
         this.title = title;
     }
 
-    public CharacterProfileRoot getCharacter() {
+    public Character getCharacter() {
         return character;
     }
 

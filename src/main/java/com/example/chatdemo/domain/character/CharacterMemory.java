@@ -16,7 +16,7 @@ public class CharacterMemory extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "character_id", nullable = false)
-    private CharacterProfileRoot character;
+    private Character character;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 50)
@@ -42,7 +42,7 @@ public class CharacterMemory extends BaseEntity {
     }
 
     public CharacterMemory(
-            CharacterProfileRoot character,
+            Character character,
             MemoryType memoryType,
             String title,
             String content,
@@ -59,7 +59,7 @@ public class CharacterMemory extends BaseEntity {
         this.createdBy = createdBy;
     }
 
-    public CharacterProfileRoot getCharacter() {
+    public Character getCharacter() {
         return character;
     }
 
