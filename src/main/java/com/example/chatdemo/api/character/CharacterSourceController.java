@@ -3,6 +3,7 @@ package com.example.chatdemo.api.character;
 import com.example.chatdemo.api.character.dto.AddCharacterSourceRequest;
 import com.example.chatdemo.api.character.dto.CharacterSourceResponse;
 import com.example.chatdemo.api.character.dto.ExtractionResultResponse;
+import com.example.chatdemo.api.common.ApiResponse;
 import com.example.chatdemo.service.character.CharacterExtractionService;
 import com.example.chatdemo.service.character.CharacterSourceService;
 import jakarta.validation.Valid;
@@ -30,20 +31,20 @@ public class CharacterSourceController {
     }
 
     @GetMapping("/sources")
-    public List<CharacterSourceResponse> listSources(@PathVariable Long characterId) {
-        return characterSourceService.list(characterId);
+    public ApiResponse<List<CharacterSourceResponse>> listSources(@PathVariable Long characterId) {
+        return ApiResponse.success(characterSourceService.list(characterId));
     }
 
     @PostMapping("/sources")
-    public CharacterSourceResponse addSource(
+    public ApiResponse<CharacterSourceResponse> addSource(
             @PathVariable Long characterId,
             @Valid @RequestBody AddCharacterSourceRequest request
     ) {
-        return characterSourceService.add(characterId, request);
+        return ApiResponse.success(characterSourceService.add(characterId, request));
     }
 
     @PostMapping("/extract")
-    public ExtractionResultResponse extract(@PathVariable Long characterId) {
-        return characterExtractionService.extract(characterId);
+    public ApiResponse<ExtractionResultResponse> extract(@PathVariable Long characterId) {
+        return ApiResponse.success(characterExtractionService.extract(characterId));
     }
 }

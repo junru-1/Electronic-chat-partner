@@ -1,5 +1,7 @@
 package com.example.chatdemo.service.auth;
 
+import com.example.chatdemo.api.common.BusinessException;
+import com.example.chatdemo.api.common.ErrorCode;
 import com.example.chatdemo.domain.auth.LoginToken;
 import com.example.chatdemo.domain.user.UserAccount;
 import com.example.chatdemo.repository.auth.LoginTokenRepository;
@@ -34,10 +36,10 @@ public class AuthService {
     @Transactional
     public UserAccount verify(String token) {
         LoginToken loginToken = loginTokenRepository.findByToken(token)
-                .orElseThrow(() -> new IllegalArgumentException("Token not found"));
+                .orElseThrow(() -> new BusinessException(ErrorCode.TOKEN_INVALID));
 
         if (loginToken.getUsedAt() != null || loginToken.getExpiresAt().isBefore(LocalDateTime.now())) {
-            throw new IllegalArgumentException("Token expired or already used");
+            throw new BusinessException(ErrorCode.TOKEN_EXPIRED);
         }
 
         loginToken.markUsed(LocalDateTime.now());

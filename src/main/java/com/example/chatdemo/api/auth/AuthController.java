@@ -5,6 +5,7 @@ import com.example.chatdemo.api.auth.dto.MagicLinkResponse;
 import com.example.chatdemo.api.auth.dto.RequestMagicLinkRequest;
 import com.example.chatdemo.api.auth.dto.VerifyMagicLinkRequest;
 import com.example.chatdemo.api.auth.dto.VerifyMagicLinkResponse;
+import com.example.chatdemo.api.common.ApiResponse;
 import com.example.chatdemo.config.MagicLinkProperties;
 import com.example.chatdemo.domain.user.UserAccount;
 import com.example.chatdemo.service.auth.AuthService;
@@ -27,18 +28,18 @@ public class AuthController {
     }
 
     @PostMapping("/request")
-    public MagicLinkResponse request(@Valid @RequestBody RequestMagicLinkRequest request) {
+    public ApiResponse<MagicLinkResponse> request(@Valid @RequestBody RequestMagicLinkRequest request) {
         String token = authService.requestMagicLink(request.email(), magicLinkProperties.ttlMinutes());
         String loginUrl = magicLinkProperties.appBaseUrl() + "/auth/verify?token=" + token;
-        return new MagicLinkResponse(token, loginUrl);
+        return ApiResponse.success(new MagicLinkResponse(token, loginUrl));
     }
 
     @PostMapping("/verify")
-    public VerifyMagicLinkResponse verify(@Valid @RequestBody VerifyMagicLinkRequest request) {
+    public ApiResponse<VerifyMagicLinkResponse> verify(@Valid @RequestBody VerifyMagicLinkRequest request) {
         UserAccount user = authService.verify(request.token());
-        return new VerifyMagicLinkResponse(
+        return ApiResponse.success(new VerifyMagicLinkResponse(
                 request.token(),
                 new AuthUserResponse(user.getId(), user.getEmail(), user.getDisplayName())
-        );
+        ));
     }
 }

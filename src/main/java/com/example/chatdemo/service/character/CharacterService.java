@@ -2,7 +2,9 @@ package com.example.chatdemo.service.character;
 
 import com.example.chatdemo.api.character.dto.CharacterResponse;
 import com.example.chatdemo.api.character.dto.CreateCharacterRequest;
-import com.example.chatdemo.domain.character.CharacterProfileRoot;
+import com.example.chatdemo.api.common.BusinessException;
+import com.example.chatdemo.api.common.ErrorCode;
+import com.example.chatdemo.domain.character.Character;
 import com.example.chatdemo.domain.character.CharacterStatus;
 import com.example.chatdemo.domain.user.UserAccount;
 import com.example.chatdemo.repository.character.CharacterRepository;
@@ -33,9 +35,9 @@ public class CharacterService {
     @Transactional
     public CharacterResponse create(Long userId, CreateCharacterRequest request) {
         UserAccount user = userAccountRepository.findById(userId)
-                .orElseThrow(() -> new IllegalArgumentException("User not found: " + userId));
+                .orElseThrow(() -> new BusinessException(ErrorCode.UNAUTHORIZED, "User not found"));
 
-        CharacterProfileRoot character = new CharacterProfileRoot(
+        Character character = new Character(
                 user,
                 request.name(),
                 request.relationshipType(),

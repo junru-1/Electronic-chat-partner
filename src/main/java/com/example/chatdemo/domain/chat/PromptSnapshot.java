@@ -1,6 +1,6 @@
 package com.example.chatdemo.domain.chat;
 
-import com.example.chatdemo.domain.character.CharacterProfileRoot;
+import com.example.chatdemo.domain.character.Character;
 import com.example.chatdemo.domain.common.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -15,7 +15,7 @@ public class PromptSnapshot extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "character_id", nullable = false)
-    private CharacterProfileRoot character;
+    private Character character;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "session_id", nullable = false)
@@ -33,7 +33,7 @@ public class PromptSnapshot extends BaseEntity {
     protected PromptSnapshot() {
     }
 
-    public PromptSnapshot(CharacterProfileRoot character, ConversationSession session, String systemPrompt, String inputContextJson, String modelName) {
+    public PromptSnapshot(Character character, ConversationSession session, String systemPrompt, String inputContextJson, String modelName) {
         this.character = character;
         this.session = session;
         this.systemPrompt = systemPrompt;
@@ -41,7 +41,7 @@ public class PromptSnapshot extends BaseEntity {
         this.modelName = modelName;
     }
 
-    public CharacterProfileRoot getCharacter() {
+    public Character getCharacter() {
         return character;
     }
 

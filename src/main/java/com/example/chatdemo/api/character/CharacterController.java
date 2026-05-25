@@ -2,6 +2,7 @@ package com.example.chatdemo.api.character;
 
 import com.example.chatdemo.api.character.dto.CharacterResponse;
 import com.example.chatdemo.api.character.dto.CreateCharacterRequest;
+import com.example.chatdemo.api.common.ApiResponse;
 import com.example.chatdemo.service.character.CharacterService;
 import jakarta.validation.Valid;
 import java.util.List;
@@ -23,12 +24,12 @@ public class CharacterController {
     }
 
     @GetMapping
-    public List<CharacterResponse> list(@RequestHeader("X-User-Id") Long userId) {
-        return characterService.listByUser(userId);
+    public ApiResponse<List<CharacterResponse>> list(@RequestHeader("X-User-Id") Long userId) {
+        return ApiResponse.success(characterService.listByUser(userId));
     }
 
     @PostMapping
-    public CharacterResponse create(@RequestHeader("X-User-Id") Long userId, @Valid @RequestBody CreateCharacterRequest request) {
-        return characterService.create(userId, request);
+    public ApiResponse<CharacterResponse> create(@RequestHeader("X-User-Id") Long userId, @Valid @RequestBody CreateCharacterRequest request) {
+        return ApiResponse.success(characterService.create(userId, request));
     }
 }

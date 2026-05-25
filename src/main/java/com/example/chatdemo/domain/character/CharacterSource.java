@@ -16,7 +16,7 @@ public class CharacterSource extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "character_id", nullable = false)
-    private CharacterProfileRoot character;
+    private Character character;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 50)
@@ -34,7 +34,7 @@ public class CharacterSource extends BaseEntity {
     protected CharacterSource() {
     }
 
-    public CharacterSource(CharacterProfileRoot character, SourceType sourceType, String title, String rawText) {
+    public CharacterSource(Character character, SourceType sourceType, String title, String rawText) {
         this.character = character;
         this.sourceType = sourceType;
         this.title = title;
@@ -42,7 +42,7 @@ public class CharacterSource extends BaseEntity {
         this.deleted = false;
     }
 
-    public CharacterProfileRoot getCharacter() {
+    public Character getCharacter() {
         return character;
     }
 

@@ -3,6 +3,7 @@ package com.example.chatdemo.api.chat;
 import com.example.chatdemo.api.chat.dto.MessageResponse;
 import com.example.chatdemo.api.chat.dto.SendMessageRequest;
 import com.example.chatdemo.api.chat.dto.SendMessageResponse;
+import com.example.chatdemo.api.common.ApiResponse;
 import com.example.chatdemo.service.chat.ChatMessageService;
 import jakarta.validation.Valid;
 import java.util.List;
@@ -24,15 +25,15 @@ public class ChatMessageController {
     }
 
     @GetMapping
-    public List<MessageResponse> list(@PathVariable Long sessionId) {
-        return chatMessageService.list(sessionId);
+    public ApiResponse<List<MessageResponse>> list(@PathVariable Long sessionId) {
+        return ApiResponse.success(chatMessageService.list(sessionId));
     }
 
     @PostMapping
-    public SendMessageResponse send(
+    public ApiResponse<SendMessageResponse> send(
             @PathVariable Long sessionId,
             @Valid @RequestBody SendMessageRequest request
     ) {
-        return chatMessageService.send(sessionId, request.content());
+        return ApiResponse.success(chatMessageService.send(sessionId, request.content()));
     }
 }

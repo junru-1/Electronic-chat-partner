@@ -2,6 +2,8 @@ package com.example.chatdemo.service.chat;
 
 import com.example.chatdemo.api.chat.dto.MessageResponse;
 import com.example.chatdemo.api.chat.dto.SendMessageResponse;
+import com.example.chatdemo.api.common.BusinessException;
+import com.example.chatdemo.api.common.ErrorCode;
 import com.example.chatdemo.domain.chat.ConversationMessage;
 import com.example.chatdemo.domain.chat.ConversationSession;
 import com.example.chatdemo.domain.chat.MessageRole;
@@ -42,7 +44,7 @@ public class ChatMessageService {
     @Transactional
     public SendMessageResponse send(Long sessionId, String content) {
         ConversationSession session = conversationSessionRepository.findById(sessionId)
-                .orElseThrow(() -> new IllegalArgumentException("Session not found: " + sessionId));
+                .orElseThrow(() -> new BusinessException(ErrorCode.SESSION_NOT_FOUND));
 
         ConversationMessage userMessage = conversationMessageRepository.save(
                 new ConversationMessage(session, MessageRole.USER, content, null, null)

@@ -1,7 +1,7 @@
 package com.example.chatdemo.api.character.dto;
 
 import com.example.chatdemo.domain.character.CharacterStatus;
-import com.example.chatdemo.domain.character.CharacterProfileRoot;
+import com.example.chatdemo.domain.character.Character;
 import java.time.LocalDateTime;
 
 public record CharacterResponse(
@@ -16,7 +16,7 @@ public record CharacterResponse(
         LocalDateTime updatedAt
 ) {
 
-    public static CharacterResponse from(CharacterProfileRoot character) {
+    public static CharacterResponse from(Character character) {
         return new CharacterResponse(
                 character.getId(),
                 character.getName(),

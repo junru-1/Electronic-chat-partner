@@ -2,7 +2,7 @@ package com.example.chatdemo.domain.safety;
 
 import com.example.chatdemo.domain.chat.ConversationMessage;
 import com.example.chatdemo.domain.chat.ConversationSession;
-import com.example.chatdemo.domain.character.CharacterProfileRoot;
+import com.example.chatdemo.domain.character.Character;
 import com.example.chatdemo.domain.common.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -19,7 +19,7 @@ public class SafetyEvent extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "character_id")
-    private CharacterProfileRoot character;
+    private Character character;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "session_id")
@@ -44,7 +44,7 @@ public class SafetyEvent extends BaseEntity {
     }
 
     public SafetyEvent(
-            CharacterProfileRoot character,
+            Character character,
             ConversationSession session,
             ConversationMessage message,
             SafetyEventType eventType,
@@ -59,7 +59,7 @@ public class SafetyEvent extends BaseEntity {
         this.detailJson = detailJson;
     }
 
-    public CharacterProfileRoot getCharacter() {
+    public Character getCharacter() {
         return character;
     }
 

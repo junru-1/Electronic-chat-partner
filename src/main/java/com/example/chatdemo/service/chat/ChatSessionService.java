@@ -2,8 +2,10 @@ package com.example.chatdemo.service.chat;
 
 import com.example.chatdemo.api.chat.dto.ChatSessionResponse;
 import com.example.chatdemo.api.chat.dto.CreateChatSessionRequest;
+import com.example.chatdemo.api.common.BusinessException;
+import com.example.chatdemo.api.common.ErrorCode;
 import com.example.chatdemo.domain.chat.ConversationSession;
-import com.example.chatdemo.domain.character.CharacterProfileRoot;
+import com.example.chatdemo.domain.character.Character;
 import com.example.chatdemo.domain.user.UserAccount;
 import com.example.chatdemo.repository.character.CharacterRepository;
 import com.example.chatdemo.repository.chat.ConversationSessionRepository;
@@ -31,9 +33,9 @@ public class ChatSessionService {
     @Transactional
     public ChatSessionResponse create(Long userId, CreateChatSessionRequest request) {
         UserAccount user = userAccountRepository.findById(userId)
-                .orElseThrow(() -> new IllegalArgumentException("User not found: " + userId));
-        CharacterProfileRoot character = characterRepository.findById(request.characterId())
-                .orElseThrow(() -> new IllegalArgumentException("Character not found: " + request.characterId()));
+                .orElseThrow(() -> new BusinessException(ErrorCode.UNAUTHORIZED, "User not found"));
+        Character character = characterRepository.findById(request.characterId())
+                .orElseThrow(() -> new BusinessException(ErrorCode.CHARACTER_NOT_FOUND));
 
         ConversationSession session = new ConversationSession(
                 character,
